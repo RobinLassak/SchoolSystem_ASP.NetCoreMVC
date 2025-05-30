@@ -1,5 +1,6 @@
 //Dependency Injection
 using ASP.NetCoreMVC_SchoolSystem;
+using ASP.NetCoreMVC_SchoolSystem.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
 });
-
+builder.Services.AddScoped<StudentService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. - Zalezi na poradi prikazu tzv. middleware
