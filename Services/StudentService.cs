@@ -27,5 +27,18 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             }
             return studentDtos;
         }
+
+        internal async Task CreateAsync(StudentDTO newStudent)
+        {
+            Student studentToSave = new Student()
+            {
+                Id = newStudent.Id,
+                FirstName = newStudent.FirstName,
+                LastName = newStudent.LastName,
+                DateOfBirth = newStudent.DateOfBirth,
+            };
+            _dbcontext.Students.Add(studentToSave);
+            await _dbcontext.SaveChangesAsync();
+        }
     }
 }

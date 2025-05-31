@@ -1,33 +1,38 @@
 ﻿@using ASP.NetCoreMVC_SchoolSystem.DTO
 @model IEnumerable<StudentDTO>
 
-<h1 class="text-center my-5">List of Students</h1>
-<table class="table table-primary table-striped">
-	<thead>
-		<tr>
-			<th scope="col">ID</th>
-			<th scope="col">First Name</th>
-			<th scope="col">Last Name</th>
-			<th scope="col">Date of Birth</th>
-			<th scope="col">Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-		<tr>
-		  <th scope="row">@item.Id</th>
-		  <td>@item.FirstName</td>
-		  <td>@item.LastName</td>
-		  <td>@item.DateOfBirth.ToString()</td>
-		  <td>
-			  <a class="btn btn-warning my-1">Edit</a>
-			  <form method="post">
-				  <button type="submit" class="btn btn-danger">Delete</button>
-			  </form>
-		  </td>
-		</tr>
-		}
-	</tbody>
-</table>
+<div class="container text-center">
+	<h1 class="my-5">List of Students</h1>
+	<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new student</a>
+	<table class="table table-primary table-striped">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Date of Birth</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+				@foreach (var item in Model)
+				{
+				<tr>
+				  <th scope="row">@item.Id</th>
+				  <td>@item.FirstName</td>
+				  <td>@item.LastName</td>
+				  <td>@item.DateOfBirth.ToString()</td>
+				  <td>
+					  <div class="d-flex align-items-center justify-content-center gap-2">
+						  <a class="btn btn-warning">Edit</a>
+						  <form method="post">
+							  <button type="submit" class="btn btn-danger">Delete</button>
+						  </form>
+					  </div>
+				  </td>
+				</tr>
+				}
+		</tbody>
+	</table>
+</div>
 
