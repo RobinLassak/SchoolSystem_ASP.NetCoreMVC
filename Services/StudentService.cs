@@ -1,4 +1,7 @@
-﻿namespace ASP.NetCoreMVC_SchoolSystem.Services
+﻿using ASP.NetCoreMVC_SchoolSystem.Models;
+using ASP.NetCoreMVC_SchoolSystem.DTO;
+
+namespace ASP.NetCoreMVC_SchoolSystem.Services
 {
     public class StudentService
     {
@@ -6,6 +9,23 @@
         public StudentService(SchoolDbContext dbContext)
         {
             _dbcontext = dbContext;
+        }
+        public List<StudentDTO> GetAll()
+        {
+            var AllStudents = _dbcontext.Students.ToList();
+            var studentDtos = new List<StudentDTO>();
+            foreach (var student in AllStudents)
+            {
+                StudentDTO studentDTO = new StudentDTO()
+                {
+                    Id = student.Id,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    DateOfBirth = student.DateOfBirth,
+                };
+                studentDtos.Add(studentDTO);
+            }
+            return studentDtos;
         }
     }
 }

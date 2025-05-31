@@ -12,7 +12,8 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var allStudents = _studentService.GetAll();
+            return View(allStudents);
         }
     }
 }
