@@ -16,17 +16,12 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             var studentDtos = new List<StudentDTO>();
             foreach (var student in AllStudents)
             {
-                StudentDTO studentDTO = new StudentDTO()
-                {
-                    Id = student.Id,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    DateOfBirth = student.DateOfBirth,
-                };
+                StudentDTO studentDTO = ModelToDto(student);
                 studentDtos.Add(studentDTO);
             }
             return studentDtos;
         }
+
 
         internal async Task CreateAsync(StudentDTO newStudent)
         {
@@ -39,6 +34,23 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             };
             _dbcontext.Students.Add(studentToSave);
             await _dbcontext.SaveChangesAsync();
+        }
+
+        internal async Task<StudentDTO> GetByIdAsync(int id)
+        {
+            var studentToEdit = await _dbcontext.Students.FindAsync(id);
+            return ModelToDto(studentToEdit);
+        }
+
+        private static StudentDTO ModelToDto(Student student)
+        {
+            return new StudentDTO()
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                DateOfBirth = student.DateOfBirth,
+            };
         }
     }
 }

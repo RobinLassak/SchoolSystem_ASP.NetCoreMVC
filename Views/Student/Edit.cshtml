@@ -1,0 +1,15 @@
+﻿@using ASP.NetCoreMVC_SchoolSystem.DTO
+@model StudentDTO
+
+<h1 class="text-center">Update a student</h1>
+<form asp-action="Edit" method="post">
+	<div class="form-group">
+		<label class="form-label" asp-for="FirstName">First name:</label>
+		<input type="text" asp-for="@Model.FirstName" class="form-control" />
+		<label class="form-label" asp-for="LastName">Last name:</label>
+		<input type="text" asp-for="@Model.LastName" class="form-control" />
+		<label class="form-label" asp-for="DateOfBirth">Date of birth:</label>
+		<input type="date" asp-for="@Model.DateOfBirth" class="form-control" />
+	</div>
+	<button type="submit" class="btn btn-warning my-2">Edit</button>
+</form>
