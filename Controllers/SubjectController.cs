@@ -32,6 +32,25 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _subjectService.CreateAsync(newSubject);
             return RedirectToAction("Index");
         }
-
+        //Metody pro editaci predmetu
+        [HttpGet]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var subjectToEdit = await _subjectService.GetByIdAsync(id);
+            return View(subjectToEdit);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(SubjectDTO subjectDTO, int id)
+        {
+            await _subjectService.UpdateAsync(subjectDTO, id);
+            return RedirectToAction("Index");
+        }
+        //Metoda pro smazani predmetu
+        [HttpPost]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await _subjectService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }

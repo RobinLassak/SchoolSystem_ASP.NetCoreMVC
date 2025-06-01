@@ -10,6 +10,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
         {
             _dbcontext = dbContext;
         }
+        //Zobrazeni seznamu predmetu
         public List<SubjectDTO> GetAll()
         {
             var AllSubjects = _dbcontext.Subjects.ToList();
@@ -21,14 +22,34 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             }
             return subjectsDtos;
         }
-
+        //Vytvoreni noveho predmetu
         internal async Task CreateAsync(SubjectDTO newSubject)
         {
             Subject subjectToSave = DtoToModel(newSubject);
             _dbcontext.Subjects.Add(subjectToSave);
             await _dbcontext.SaveChangesAsync();
         }
-
+        //Uprava stavajiciho predmetu
+        internal async Task<SubjectDTO> GetByIdAsync(int id)
+        {
+            var subjectToEdit = await _dbcontext.Subjects.FindAsync(id);
+            return ModelToDto(subjectToEdit);
+        }
+        internal async Task UpdateAsync(SubjectDTO subjectDTO, int id)
+        {
+            _dbcontext.Update(DtoToModel(subjectDTO));
+            await _dbcontext.SaveChangesAsync();
+        }
+        //Smazani predmetu
+        internal async Task DeleteAsync(int id)
+        {
+            var subjectToDelete = await _dbcontext.Subjects.FindAsync(id);
+            if (subjectToDelete != null)
+            {
+                _dbcontext.Subjects.Remove(subjectToDelete);
+            }
+            await _dbcontext.SaveChangesAsync();
+        }
         private static SubjectDTO ModelToDto(Subject subject)
         {
             return new SubjectDTO()

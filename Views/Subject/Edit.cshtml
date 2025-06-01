@@ -1,0 +1,11 @@
+﻿@using ASP.NetCoreMVC_SchoolSystem.DTO
+@model SubjectDTO
+
+<h1 class="text-center">Update subject</h1>
+<form asp-action="Edit" method="post">
+	<div class="form-group">
+		<label class="form-label" asp-for="Name">First name:</label>
+		<input type="text" asp-for="@Model.Name" class="form-control" />
+	</div>
+	<button type="submit" class="btn btn-warning my-2">Edit</button>
+</form>
