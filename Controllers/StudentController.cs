@@ -37,5 +37,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             var studentToEdit = await _studentService.GetByIdAsync(id);
             return View(studentToEdit);
         }
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(StudentDTO studentDTO, int id)
+        {
+            await _studentService.UpdateAsync(studentDTO, id);
+            return RedirectToAction("Index");
+        }
     }
 }

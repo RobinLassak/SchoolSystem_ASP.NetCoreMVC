@@ -25,23 +25,30 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
 
         internal async Task CreateAsync(StudentDTO newStudent)
         {
-            Student studentToSave = new Student()
+            Student studentToSave = DtoToModel(newStudent);
+            _dbcontext.Students.Add(studentToSave);
+            await _dbcontext.SaveChangesAsync();
+        }
+        internal async Task<StudentDTO> GetByIdAsync(int id)
+        {
+            var studentToEdit = await _dbcontext.Students.FindAsync(id);
+            return ModelToDto(studentToEdit);
+        }
+        internal async Task UpdateAsync(StudentDTO studentDTO, int id)
+        {
+            _dbcontext.Update(DtoToModel(studentDTO));
+            await _dbcontext.SaveChangesAsync();
+        }
+        private Student DtoToModel(StudentDTO newStudent)
+        {
+            return new Student()
             {
                 Id = newStudent.Id,
                 FirstName = newStudent.FirstName,
                 LastName = newStudent.LastName,
                 DateOfBirth = newStudent.DateOfBirth,
             };
-            _dbcontext.Students.Add(studentToSave);
-            await _dbcontext.SaveChangesAsync();
         }
-
-        internal async Task<StudentDTO> GetByIdAsync(int id)
-        {
-            var studentToEdit = await _dbcontext.Students.FindAsync(id);
-            return ModelToDto(studentToEdit);
-        }
-
         private static StudentDTO ModelToDto(Student student)
         {
             return new StudentDTO()
