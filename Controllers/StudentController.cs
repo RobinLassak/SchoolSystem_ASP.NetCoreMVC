@@ -43,5 +43,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _studentService.UpdateAsync(studentDTO, id);
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await _studentService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }

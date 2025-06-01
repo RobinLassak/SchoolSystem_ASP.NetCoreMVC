@@ -39,6 +39,15 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             _dbcontext.Update(DtoToModel(studentDTO));
             await _dbcontext.SaveChangesAsync();
         }
+        internal async Task DeleteAsync(int id)
+        {
+            var studentToDelete = await _dbcontext.Students.FindAsync(id);
+            if (studentToDelete != null)
+            {
+                _dbcontext.Students.Remove(studentToDelete);
+            }
+            await _dbcontext.SaveChangesAsync();
+        }
         private Student DtoToModel(StudentDTO newStudent)
         {
             return new Student()
