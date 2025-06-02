@@ -37,6 +37,10 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         public async Task<IActionResult> EditAsync(int id)
         {
             var subjectToEdit = await _subjectService.GetByIdAsync(id);
+            if(subjectToEdit == null)
+            {
+                return View("NotFound");
+            }
             return View(subjectToEdit);
         }
         [HttpPost]

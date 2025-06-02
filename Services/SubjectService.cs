@@ -33,6 +33,10 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
         internal async Task<SubjectDTO> GetByIdAsync(int id)
         {
             var subjectToEdit = await _dbcontext.Subjects.FindAsync(id);
+            if(subjectToEdit == null)
+            {
+                return null;
+            }
             return ModelToDto(subjectToEdit);
         }
         internal async Task UpdateAsync(SubjectDTO subjectDTO, int id)
