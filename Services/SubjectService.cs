@@ -50,6 +50,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             }
             await _dbcontext.SaveChangesAsync();
         }
+        //Pomocne metody
         private static SubjectDTO ModelToDto(Subject subject)
         {
             return new SubjectDTO()
