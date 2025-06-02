@@ -52,6 +52,13 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _gradeService.UpdateAsync(gradeDTO, id);
             return RedirectToAction("Index");
         }
+        //Mazani zaznamu
+        [HttpPost]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await _gradeService.DeleteAsync(id);
+            return RedirectToAction("Index"); ;
+        }
         //Pomocne metody
         private void FillDropdowns()
         {

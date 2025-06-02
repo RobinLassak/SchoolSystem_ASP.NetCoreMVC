@@ -86,6 +86,16 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             _dbContext.Update(gradeToUpdate);
             await _dbContext.SaveChangesAsync();
         }
+        //Mazani zaznamu
+        internal async Task DeleteAsync(int id)
+        {
+            var gradesToDelete = await _dbContext.Grades.FindAsync(id);
+            if (gradesToDelete != null)
+            {
+                _dbContext.Grades.Remove(gradesToDelete);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
 
         // DTO konverze
         private static GradeDTO ModelToDto(Grade grade)
