@@ -11,8 +11,10 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
 });
+//Servisky
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<SubjectService>();
+builder.Services.AddScoped<GradeService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. - Zalezi na poradi prikazu tzv. middleware
