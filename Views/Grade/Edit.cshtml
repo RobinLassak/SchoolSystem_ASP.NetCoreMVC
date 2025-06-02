@@ -1,0 +1,30 @@
+﻿@using ASP.NetCoreMVC_SchoolSystem.DTO
+@model GradeDTO
+
+<h1 class="text-center my-5">Edit grade</h1>
+<form asp-action="Edit">
+	<div class="form-group">
+		<div>
+			<label class="form-label" asp-for="StudentId">Student ID:</label>
+			<select type="number" asp-for="StudentId" asp-items="ViewBag.Students" class="form-control"></select>
+		</div>
+		<div>
+			<label class="form-label" asp-for="SubjectId">Subject ID:</label>
+			<select type="number" asp-for="SubjectId" asp-items="ViewBag.Subjects" class="form-control"></select>
+		</div>
+		<div>
+			<label class="form-label" asp-for="Topic">Topic:</label>
+			<input type="text" asp-for="Topic" class="form-control" />
+		</div>
+		<div>
+			<label class="form-label" asp-for="Mark">Mark:</label>
+			<input type="number" asp-for="Mark" class="form-control" />
+		</div>
+		<div>
+			<label class="form-label" asp-for="Date">Date:</label>
+			<input type="date" asp-for="Date" class="form-control" />
+		</div>
+	</div>
+	<button type="submit" class="btn btn-warning my-2">Edit</button>
+	<button type="reset" class="btn btn-danger my-2">Reset</button>
+</form>
