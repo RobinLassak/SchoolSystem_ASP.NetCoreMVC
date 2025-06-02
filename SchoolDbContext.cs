@@ -9,5 +9,6 @@ namespace ASP.NetCoreMVC_SchoolSystem
             : base(options) { }
         public DbSet<Student> Students { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Grade> Grades { get; set; }   
     }
 }
