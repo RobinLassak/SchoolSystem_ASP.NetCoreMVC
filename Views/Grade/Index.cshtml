@@ -1,0 +1,40 @@
+﻿@using ASP.NetCoreMVC_SchoolSystem.DTO
+@model IEnumerable<GradeDTO>
+
+<div class="text-center">
+	<h1 class="my-5">List of all grades</h1>
+	<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new grade</a>
+	<table class="table table-primary table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Student</th>
+				<th scope="col">Subject</th>
+				<th scope="col">Topic</th>
+				<th scope="col">Mark</th>
+				<th scope="col">Date</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+					<tr>
+					  <th scope="row">@item.StudentName</th>
+					  <td>@item.SubjectName</td>
+					  <td>@item.Topic</td>
+					  <td>@item.Mark</td>
+					  <td>@item.Date</td>
+					  <td>
+						  <div class="d-flex align-items-center justify-content-center gap-2">
+							  <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+							  <form method="post">
+								  <button type="submit" class="btn btn-danger" asp-action="Delete" 
+								  asp-route-id="@item.Id">Delete</button>
+							  </form>
+						  </div>
+					  </td>
+					</tr>
+			}
+		</tbody>
+	</table>
+</div>
