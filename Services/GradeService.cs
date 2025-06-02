@@ -14,6 +14,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
         {
             _dbContext = dbContext;
         }
+        //Zobrazeni
         public List<GradeDTO> GetAll()
         {
             var allGrades = _dbContext.Grades
@@ -29,7 +30,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             }
             return gradesDtos;
         }
-
+        //Vytvoreni noveho zaznamu
         internal async Task CreateAsync(GradeDTO newGrade)
         {
             Grade gradeToInsert = new Grade()
@@ -53,6 +54,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             };
             
         }
+        //Pomocne metody
         private static GradeDTO ModelToDto(Grade grade)
         {
             return new GradeDTO()
@@ -64,7 +66,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
                 SubjectId = grade.Subject.Id,
                 Topic = grade.Topic,
                 Mark = grade.Mark,
-                Date = grade.Date,
+                Date = new DateOnly(grade.Date.Year, grade.Date.Month, grade.Date.Day),
             };
         }
     }

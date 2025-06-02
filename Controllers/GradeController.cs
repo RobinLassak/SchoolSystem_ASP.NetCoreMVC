@@ -13,11 +13,14 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         {
             _gradeService = gradeService;
         }
+        //Zobrazeni
+        [HttpGet]
         public IActionResult Index()
         {
-            var grades = _gradeService.GetAll();
+            IEnumerable<GradeDTO> grades = _gradeService.GetAll();
             return View(grades);
         }
+        //Vytvoreni noveho zaznamu
         [HttpGet]
         public IActionResult Create()
         {

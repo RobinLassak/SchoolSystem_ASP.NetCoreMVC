@@ -11,6 +11,6 @@ namespace ASP.NetCoreMVC_SchoolSystem.DTO
         public int SubjectId { get; set; }
         public string? Topic { get; set; } //Co (zkouseni, pisemka)
         public int Mark { get; set; } //Znamka
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
     }
 }
