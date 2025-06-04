@@ -1,6 +1,8 @@
 //Dependency Injection
 using ASP.NetCoreMVC_SchoolSystem;
+using ASP.NetCoreMVC_SchoolSystem.Models;
 using ASP.NetCoreMVC_SchoolSystem.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
 });
+//Prihlasovani - Autentizace
+builder.Services.AddIdentity<AppUsers, IdentityRole>().AddEntityFrameworkStores<SchoolDbContext>().AddDefaultTokenProviders();
 //Servisky
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<SubjectService>();
