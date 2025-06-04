@@ -38,6 +38,9 @@ app.UseStaticFiles();
 //Propojuje pozadavky na endpointy
 app.UseRouting();
 
+//Prihlasovani
+app.UseAuthentication();
+//Kdo ma kam pristup
 app.UseAuthorization();
 
 //Specifikuje cesty... Tato appka zacina na controlleru Home a akci Index, id volitelne
