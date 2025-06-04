@@ -7,6 +7,7 @@
 	<div class="form-group">
 		<label class="form-label" asp-for="Name">Name of subject:</label>
 		<input type="text" asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
 	</div>
 	<button type="submit" class="btn btn-warning my-2">Create</button>
 	<button type="reset" class="btn btn-danger my-2">Reset</button>
