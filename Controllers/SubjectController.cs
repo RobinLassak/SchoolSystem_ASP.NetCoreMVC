@@ -7,9 +7,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
     public class SubjectController : Controller
     {
         SubjectService _subjectService;
-        public SubjectController(SubjectService subjectService)
+        private readonly ILogger<HomeController> _logger;
+        public SubjectController(SubjectService subjectService, ILogger<HomeController> logger)
         {
             _subjectService = subjectService;
+            _logger = logger;
         }
         //Metoda pro zobrazeni seznamu predmetu
         [HttpGet]
@@ -29,6 +31,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(SubjectDTO newSubject)
         {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Neplatna data.");
+                return View(newSubject);
+            }
             await _subjectService.CreateAsync(newSubject);
             return RedirectToAction("Index");
         }
