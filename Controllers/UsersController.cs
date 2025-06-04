@@ -8,9 +8,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
     public class UsersController : Controller
     {
         UserManager<AppUsers> _userManager;
-        public UsersController(UserManager<AppUsers> userManager)
+        IPasswordHasher<AppUsers> _passwordHasher;
+        public UsersController(UserManager<AppUsers> userManager, IPasswordHasher<AppUsers> passwordHasher)
         {
             _userManager = userManager;
+            _passwordHasher = passwordHasher;
         }
         public IActionResult Index()
         {
@@ -45,6 +47,57 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
                 }
             }
             return View(newUser);
+        }
+        //Uprava uzivatele
+        public async Task<IActionResult> EditAsync(string id)
+        {
+            var userToEdit = await _userManager.FindByIdAsync(id);
+            if (userToEdit == null)
+            {
+                return View("NotFound");
+            }
+            return View(userToEdit);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(string id, string email, string password)
+        {
+            AppUsers userToEdit = await _userManager.FindByIdAsync(id);
+            if (userToEdit == null)
+            {
+                return View("NotFound");
+            }
+            if (!string.IsNullOrEmpty(email))
+            {
+                userToEdit.Email = email;
+            }
+            else
+            {
+                ModelState.AddModelError("", "E-mail cannot be empty");
+            }
+            if (!string.IsNullOrEmpty(password))
+            {
+                userToEdit.PasswordHash = _passwordHasher.HashPassword(userToEdit, password);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Password cannot be empty");
+            }
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+            {
+                IdentityResult result = await _userManager.UpdateAsync(userToEdit);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach(var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View(userToEdit);
         }
     }
 }
