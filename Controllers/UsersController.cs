@@ -90,14 +90,42 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
                     return RedirectToAction("Index");
                 }
                 else
-                {
-                    foreach(var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                }
+                    AddIdentityErrors(result);
             }
             return View(userToEdit);
+        }
+
+        //Smazani uzivatele
+        [HttpPost]
+        public async Task<IActionResult> DeleteAsync(string id)
+        {
+            AppUsers userToDelete = await _userManager.FindByIdAsync(id);
+            if (userToDelete != null)
+            {
+                IdentityResult result = await _userManager.DeleteAsync(userToDelete);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    AddIdentityErrors(result);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+                return View("Index", _userManager.Users);
+            }
+            return View(userToDelete);
+        }
+        //Pomocne metody
+        private void AddIdentityErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
         }
     }
 }
