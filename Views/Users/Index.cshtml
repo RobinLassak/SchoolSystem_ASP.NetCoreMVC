@@ -1,3 +1,33 @@
-﻿<div class="container">
-	<h1 class="text-center my-5">List of all users</h1>
+﻿@model IEnumerable<AppUsers>
+
+<div class="container text-center">
+	<h1 class="my-5">List of all users</h1>
+	<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new user</a>
+	<table class="table table-primary table-striped">
+		<thead>
+			<tr>
+				<th scope="col">User name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+					<tr>
+					  <td>@item.UserName</td>
+					  <td>@item.Email</td>
+					  <td>
+						  <div class="d-flex align-items-center justify-content-center gap-2">
+							  <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+							  <form method="post">
+								  <button type="submit" class="btn btn-danger" asp-action="Delete" 
+								  asp-route-id="@item.Id">Delete</button>
+							  </form>
+						  </div>
+					  </td>
+					</tr>
+			}
+		</tbody>
+	</table>
 </div>

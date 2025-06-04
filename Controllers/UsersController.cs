@@ -14,7 +14,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_userManager.Users);
         }
         //Vytvareni noveho uzivatele
         public IActionResult Create()
