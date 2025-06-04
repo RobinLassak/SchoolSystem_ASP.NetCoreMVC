@@ -19,6 +19,15 @@ builder.Services.AddIdentity<AppUsers, IdentityRole>().AddEntityFrameworkStores<
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<SubjectService>();
 builder.Services.AddScoped<GradeService>();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 5;
+    options.Password.RequireNonAlphanumeric = false;
+
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. - Zalezi na poradi prikazu tzv. middleware

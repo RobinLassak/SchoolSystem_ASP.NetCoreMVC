@@ -9,10 +9,13 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
     {
         UserManager<AppUsers> _userManager;
         IPasswordHasher<AppUsers> _passwordHasher;
-        public UsersController(UserManager<AppUsers> userManager, IPasswordHasher<AppUsers> passwordHasher)
+        IPasswordValidator<AppUsers> _passwordValidator;
+        public UsersController(UserManager<AppUsers> userManager, IPasswordHasher<AppUsers> passwordHasher, 
+            IPasswordValidator<AppUsers> passwordValidator)
         {
             _userManager = userManager;
             _passwordHasher = passwordHasher;
+            _passwordValidator = passwordValidator;
         }
         public IActionResult Index()
         {
@@ -74,9 +77,19 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             {
                 ModelState.AddModelError("", "E-mail cannot be empty");
             }
+            IdentityResult validPass = null;
             if (!string.IsNullOrEmpty(password))
             {
-                userToEdit.PasswordHash = _passwordHasher.HashPassword(userToEdit, password);
+                validPass = await _passwordValidator.ValidateAsync(_userManager, userToEdit, password);
+                if (validPass.Succeeded)
+                {
+                    userToEdit.PasswordHash = _passwordHasher.HashPassword(userToEdit, password);
+                }
+                else
+                {
+                    AddIdentityErrors(validPass);
+                }
+                
             }
             else
             {
@@ -84,13 +97,16 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             }
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
-                IdentityResult result = await _userManager.UpdateAsync(userToEdit);
-                if (result.Succeeded)
+                if (validPass.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    IdentityResult result = await _userManager.UpdateAsync(userToEdit);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                        AddIdentityErrors(result);
                 }
-                else
-                    AddIdentityErrors(result);
             }
             return View(userToEdit);
         }
