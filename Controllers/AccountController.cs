@@ -48,7 +48,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
