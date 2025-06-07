@@ -4,11 +4,20 @@ using ASP.NetCoreMVC_SchoolSystem.Models;
 using ASP.NetCoreMVC_SchoolSystem.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+});
+
 builder.Services.AddDbContext<SchoolDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
@@ -34,6 +43,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.Name = ".AspNetCore.Identity.Application";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(10); //urcuje jak dlouho zustane uzivatel prihlasen
     options.SlidingExpiration = true; //pokud uzivatel v polovine casu neco provede, prihlasovaci cas se vyresetuje
+    options.LoginPath = "/Account/Login";
 });
 var app = builder.Build();
 
