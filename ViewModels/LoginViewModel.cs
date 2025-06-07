@@ -9,5 +9,6 @@ namespace ASP.NetCoreMVC_SchoolSystem.ViewModels
 
         [Display(Name = "Return URL")]
         public string? ReturnURL { get; set; }
+        public bool Remember { get; set; }
     }
 }

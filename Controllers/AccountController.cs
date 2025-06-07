@@ -34,7 +34,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
                 AppUsers userToLogin = await _userManager.FindByNameAsync(login.UserName);
                 if (userToLogin != null)
                 {
-                    var signInResult = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, false, false);
+                    var signInResult = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.Remember, false);
                     if (signInResult.Succeeded)
                     {
                         return Redirect(login.ReturnURL ?? "/");
