@@ -14,5 +14,6 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         {
             return View(_roleManager.Roles);
         }
+
     }
 }
