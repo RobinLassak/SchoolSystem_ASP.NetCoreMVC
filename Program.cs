@@ -28,6 +28,13 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
 
 });
+//Cookies
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = ".AspNetCore.Identity.Application";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(10); //urcuje jak dlouho zustane uzivatel prihlasen
+    options.SlidingExpiration = true; //pokud uzivatel v polovine casu neco provede, prihlasovaci cas se vyresetuje
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. - Zalezi na poradi prikazu tzv. middleware
