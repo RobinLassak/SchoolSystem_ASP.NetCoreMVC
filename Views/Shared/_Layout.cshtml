@@ -34,6 +34,7 @@
                         @if(User?.Identity?.IsAuthenticated ?? false)
                         {
                                 <li class="nav-item ms-auto">
+                                    <span class="me-3 text-dark fw-bold">@User.Identity.Name</span>
                                     <a class="btn btn-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                                 </li>
                         }
