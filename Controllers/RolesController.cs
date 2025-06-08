@@ -36,6 +36,26 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             }
             return View(name);
         }
+        //Mazani role
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            IdentityRole roleToDelete = await _roleManager.FindByIdAsync(id);
+            if (roleToDelete != null)
+            {
+                var result = await _roleManager.DeleteAsync(roleToDelete);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    AddIdentityErrors(result);
+                }
+            }
+            ModelState.AddModelError("", "Role not found");
+            return View("Index", _roleManager.Roles);
+        }
         //Pomocne metody
         private void AddIdentityErrors(IdentityResult result)
         {
