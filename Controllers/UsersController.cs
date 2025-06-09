@@ -62,12 +62,16 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             return View(userToEdit);
         }
         [HttpPost]
-        public async Task<IActionResult> EditAsync(string id, string email, string password)
+        public async Task<IActionResult> EditAsync(string id, string username, string email, string password)
         {
             AppUsers userToEdit = await _userManager.FindByIdAsync(id);
             if (userToEdit == null)
             {
                 return View("NotFound");
+            }
+            if (!string.IsNullOrEmpty(username))
+            {
+                userToEdit.UserName = username;
             }
             if (!string.IsNullOrEmpty(email))
             {
