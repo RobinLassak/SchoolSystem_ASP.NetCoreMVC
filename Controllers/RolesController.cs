@@ -78,6 +78,39 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
                 Role = roleToEdit,
             });
         }
+        public async Task<IActionResult> EditAsync(RoleModification roleModification)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (string userId in roleModification.AddIds ?? new string[] {})
+                {
+                    AppUsers userToAdd = await _userManager.FindByIdAsync(userId);
+                    if(userToAdd != null)
+                    {
+                        IdentityResult result = await _userManager.AddToRoleAsync(userToAdd, roleModification.RoleName);
+                        if (!result.Succeeded)
+                        {
+                            AddIdentityErrors(result);
+                        }
+                    }
+                }
+                foreach(string userId in roleModification.DeleteIds ?? new string[] { })
+                {
+                    AppUsers userToDelete = await _userManager.FindByIdAsync(userId);
+                    if(userToDelete != null)
+                    {
+                        IdentityResult result = await _userManager.RemoveFromRoleAsync(userToDelete, roleModification.RoleName);
+                        if (!result.Succeeded)
+                        {
+                            AddIdentityErrors(result);
+                        }
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Spatne zadana zmena, zkontroluj udaje");
+            return RedirectToAction("Index");
+        }
         //Pomocne metody
         private void AddIdentityErrors(IdentityResult result)
         {
