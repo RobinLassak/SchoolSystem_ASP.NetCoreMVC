@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using ASP.NetCoreMVC_SchoolSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NetCoreMVC_SchoolSystem.Controllers
@@ -13,6 +14,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
