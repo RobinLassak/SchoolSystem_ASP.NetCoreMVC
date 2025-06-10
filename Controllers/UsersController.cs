@@ -1,10 +1,12 @@
 ﻿using ASP.NetCoreMVC_SchoolSystem.Models;
 using ASP.NetCoreMVC_SchoolSystem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NetCoreMVC_SchoolSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         UserManager<AppUsers> _userManager;
