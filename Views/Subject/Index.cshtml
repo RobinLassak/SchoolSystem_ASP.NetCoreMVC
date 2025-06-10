@@ -6,13 +6,19 @@
 
 <div class="container text-center">
 	<h1 class="my-5">List of Subjects</h1>
-	<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new subject</a>
+	@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal")))
+	{
+			<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new subject</a>	
+	}
 	<table class="table table-primary table-striped">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Name</th>
-				<th scope="col">Action</th>
+				@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal")))
+				{
+					<th scope="col">Action</th>
+				}	
 			</tr>
 		</thead>
 		<tbody>
@@ -21,15 +27,19 @@
 				<tr>
 					<td>@indexer</td>
 					<td>@item.Name</td>
-					<td>
-						<div class="d-flex align-items-center justify-content-center gap-2">
-							<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-							<form method="post">
-								<button type="submit" class="btn btn-danger" asp-action="Delete" 
-								asp-route-id="@item.Id">Delete</button>
-							</form>
-						</div>
-					</td>
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal")))
+						{
+							<td>
+								<div class="d-flex align-items-center justify-content-center gap-2">
+									<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+									<form method="post">
+										<button type="submit" class="btn btn-danger" asp-action="Delete" 
+										asp-route-id="@item.Id">Delete</button>
+									</form>
+								</div>
+							</td>
+						}
+						
 				</tr>
 				indexer++;
 			}
