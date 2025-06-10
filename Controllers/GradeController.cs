@@ -1,6 +1,7 @@
 ﻿using ASP.NetCoreMVC_SchoolSystem.DTO;
 using ASP.NetCoreMVC_SchoolSystem.Services;
 using ASP.NetCoreMVC_SchoolSystem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -22,6 +23,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Vytvoreni noveho zaznamu
         [HttpGet]
+        [Authorize(Roles = "Teacher, Admin")]
         public IActionResult Create()
         {
             FillDropdowns();
@@ -36,6 +38,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Editace zaznamu
         [HttpGet]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> EditAsync(int id, GradeDTO gradeDTO)
         {
             var gradeToEdit = await _gradeService.FindByIdAsync(id);
@@ -54,6 +57,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Mazani zaznamu
         [HttpPost]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await _gradeService.DeleteAsync(id);
