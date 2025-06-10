@@ -3,7 +3,23 @@
 
 <div class="container text-center">
 	<h1 class="my-5">List of Students</h1>
-	<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new student</a>
+	@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal") || User.IsInRole("Teacher")))
+	{
+		<a asp-action="Create" class="btn btn-warning my-3 text-center">Create new student</a>	
+	}
+	@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal")))
+	{
+		<h3 class="my-4">Upload list of students</h3>
+		<form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="Upload" class="my-4">
+			<div>
+				<input type="file" name="file" class="my-3"/>
+				@*pozor, na name je zavisle jmeno parametru, cili souboru predavaneho do controlleru. Pokud se parametr ukládací metody v StudentContolleru jmenuje file, musi i name inputu byt file*@
+			</div>
+			<div>
+				<input type="submit" value="Upload" class="btn btn-secondary" />
+			</div>
+		</form>	
+	}
 	<table class="table table-primary table-striped">
 		<thead>
 			<tr>

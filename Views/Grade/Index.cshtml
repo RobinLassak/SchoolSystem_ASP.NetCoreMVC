@@ -5,7 +5,7 @@
 	<h1 class="my-5">List of all grades</h1>
 	@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher")))
 	{
-			<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new grade</a>	
+		<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new grade</a>	
 	}
 	<table class="table table-primary table-striped">
 		<thead>
@@ -15,7 +15,7 @@
 				<th scope="col">Topic</th>
 				<th scope="col">Mark</th>
 				<th scope="col">Date</th>
-				@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher")))
+				@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher") || User.IsInRole("Principal")))
 				{
 					<th scope="col">Action</th>	
 				}
@@ -30,19 +30,19 @@
 					<td>@item.Topic</td>
 					<td>@item.Mark</td>
 					<td>@item.Date</td>
-					@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher")))
+					@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Teacher") || User.IsInRole("Principal")))
 					{
-								<td>
-								  <div class="d-flex align-items-center justify-content-center gap-2">
-									  <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-									  <form method="post">
-										  <button type="submit" class="btn btn-danger" asp-action="Delete" 
-										  asp-route-id="@item.Id">Delete</button>
-									  </form>
-								  </div>
-							  </td>	
+						<td>
+							<div class="d-flex align-items-center justify-content-center gap-2">
+								<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+								<form method="post">
+									<button type="submit" class="btn btn-danger" asp-action="Delete" 
+									asp-route-id="@item.Id">Delete</button>
+								</form>
+							</div>
+						</td>	
 					}
-					</tr>
+				</tr>
 			}
 		</tbody>
 	</table>

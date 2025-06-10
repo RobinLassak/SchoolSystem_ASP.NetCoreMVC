@@ -15,7 +15,7 @@
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Name</th>
-				@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal")))
+				@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal") || User.IsInRole("Student")))
 				{
 					<th scope="col">Action</th>
 				}	
@@ -37,6 +37,12 @@
 										asp-route-id="@item.Id">Delete</button>
 									</form>
 								</div>
+							</td>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("Student")))
+						{
+							<td>
+								<a class="btn btn-warning">My grades</a>
 							</td>
 						}
 						
