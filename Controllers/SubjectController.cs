@@ -1,5 +1,6 @@
 ﻿using ASP.NetCoreMVC_SchoolSystem.DTO;
 using ASP.NetCoreMVC_SchoolSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NetCoreMVC_SchoolSystem.Controllers
@@ -22,6 +23,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Metoda pro zobrazeni stranky Create
         [HttpGet]
+        [Authorize(Roles = "Principal, Admin")]
         public IActionResult Create()
         {
             return View();
@@ -29,6 +31,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
 
         //Metoda pro ulozeni noveho predmetu do seznamu
         [HttpPost]
+        [Authorize(Roles = "Principal, Admin")]
         public async Task<IActionResult> CreateAsync(SubjectDTO newSubject)
         {
             if (!ModelState.IsValid)
@@ -41,6 +44,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Metody pro editaci predmetu
         [HttpGet]
+        [Authorize(Roles = "Principal, Admin")]
         public async Task<IActionResult> EditAsync(int id)
         {
             var subjectToEdit = await _subjectService.GetByIdAsync(id);
@@ -51,6 +55,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             return View(subjectToEdit);
         }
         [HttpPost]
+        [Authorize(Roles = "Principal, Admin")]
         public async Task<IActionResult> EditAsync(SubjectDTO subjectDTO, int id)
         {
             await _subjectService.UpdateAsync(subjectDTO, id);
@@ -58,6 +63,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Metoda pro smazani predmetu
         [HttpPost]
+        [Authorize(Roles = "Principal, Admin")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await _subjectService.DeleteAsync(id);
