@@ -50,5 +50,10 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+        //Pokud user nema opravneni zobrazi se mu view AccessDenied
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
