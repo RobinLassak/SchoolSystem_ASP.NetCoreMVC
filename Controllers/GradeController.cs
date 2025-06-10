@@ -31,6 +31,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> CreateAsync(GradeDTO newGrade)
         {
             await _gradeService.CreateAsync(newGrade);
@@ -50,6 +51,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             return View(gradeToEdit);
         }
         [HttpPost]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> EditAsync(GradeDTO gradeDTO, int id)
         {
             await _gradeService.UpdateAsync(gradeDTO, id);
