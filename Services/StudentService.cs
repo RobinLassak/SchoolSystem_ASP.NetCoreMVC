@@ -46,6 +46,18 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             }
             await _dbcontext.SaveChangesAsync();
         }
+        internal IEnumerable<StudentDTO> GetByName(string q)
+        {
+            var nameParts = q.Split(',');
+            var studentsThatMatch = _dbcontext.Students.Where(st => st.LastName == nameParts[0])
+                .Where(st => st.FirstName == nameParts[1].Trim());
+            List<StudentDTO> returnedStudents = new List<StudentDTO>();
+            foreach(var studentThatMatch in studentsThatMatch)
+            {
+                returnedStudents.Add(ModelToDto(studentThatMatch));
+            }
+            return returnedStudents;
+        }
         private Student DtoToModel(StudentDTO newStudent)
         {
             return new Student()

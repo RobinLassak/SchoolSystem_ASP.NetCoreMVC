@@ -55,5 +55,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _studentService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Search(string q)
+        {
+            var foundStudents = _studentService.GetByName(q);
+            return View("Index", foundStudents);
+        }
     }
 }

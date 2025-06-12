@@ -20,6 +20,22 @@
 			</div>
 		</form>	
 	}
+	<div class="container">
+		<form method="get" asp-action="Search">
+			<div class="d-flex align-items-end gap-2 mb-3">
+				<label for="search" class="form-label mb-0">Search student:</label>
+				<input list="search-students" type="search" id="search" name="q" class="form-control w-auto" />
+				<button type="submit" class="btn btn-danger">Search</button>
+			</div>
+
+			<datalist id="search-students">
+					@foreach (var student in Model)
+					{
+						<option value="@student.LastName, @student.FirstName"></option>
+					}
+			</datalist>
+		</form>
+	</div>
 	<table class="table table-primary table-striped">
 		<thead>
 			<tr>
