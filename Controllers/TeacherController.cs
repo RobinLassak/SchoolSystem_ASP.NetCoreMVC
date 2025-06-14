@@ -10,9 +10,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         {
             _teacherService = teacherService;
         }
+        //Zobrazeni vsech ucitelu
         public IActionResult Index()
         {
-            return View();
+            var allTeachers = _teacherService.GetAll();
+            return View(allTeachers);
         }
     }
 }
