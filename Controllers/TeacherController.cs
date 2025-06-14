@@ -48,5 +48,13 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _teacherService.UpdateAsync(teacherDTO, id);
             return RedirectToAction("Index");
         }
+        //Smazani ucitele
+        [HttpPost]
+        [Authorize(Roles = "Principal, Admin")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await _teacherService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }

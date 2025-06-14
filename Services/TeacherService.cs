@@ -42,6 +42,16 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             _dbContext.Update(DtoToModel(teacherDTO));
             await _dbContext.SaveChangesAsync();
         }
+        //Smazani ucitele
+        internal async Task DeleteAsync(int id)
+        {
+            var teacherToDelete = await _dbContext.Teachers.FindAsync(id);
+            if (teacherToDelete != null)
+            {
+                _dbContext.Teachers.Remove(teacherToDelete);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
         //Pomocne metody
         private Teacher DtoToModel(TeacherDTO newTeacher)
         {
