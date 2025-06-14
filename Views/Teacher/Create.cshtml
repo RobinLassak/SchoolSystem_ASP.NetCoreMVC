@@ -1,0 +1,18 @@
+﻿@using ASP.NetCoreMVC_SchoolSystem.DTO
+@model TeacherDTO
+
+<h1 class="text-center">Create a new teacher</h1>
+<form asp-action="Create" method="post">
+	<div class="form-group">
+		<label class="form-label" asp-for="FirstName">First name:</label>
+		<input type="text" asp-for="FirstName" class="form-control" />
+		<label class="form-label" asp-for="LastName">Last name:</label>
+		<input type="text" asp-for="LastName" class="form-control" />
+		<label class="form-label" asp-for="DateOfBirth">Date of birth:</label>
+		<input type="date" asp-for="DateOfBirth" class="form-control" />
+		<label class="form-label" asp-for="Salary">Salary:</label>
+		<input type="number" asp-for="Salary" class="form-control" />
+	</div>
+	<button type="submit" class="btn btn-warning my-2">Create</button>
+	<button type="reset" class="btn btn-danger my-2">Reset</button>
+</form>

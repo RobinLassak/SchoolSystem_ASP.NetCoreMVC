@@ -1,4 +1,6 @@
-﻿using ASP.NetCoreMVC_SchoolSystem.Services;
+﻿using ASP.NetCoreMVC_SchoolSystem.DTO;
+using ASP.NetCoreMVC_SchoolSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NetCoreMVC_SchoolSystem.Controllers
@@ -15,6 +17,20 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         {
             var allTeachers = _teacherService.GetAll();
             return View(allTeachers);
+        }
+        //Vytvoreni noveho ucitele
+        [HttpGet]
+        [Authorize(Roles = "Principal, Admin")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Authorize(Roles = "Principal, Admin")]
+        public async Task<IActionResult> CreateAsync(TeacherDTO newTeacher)
+        {
+            await _teacherService.CreateAsync(newTeacher);
+            return RedirectToAction("Index");
         }
     }
 }

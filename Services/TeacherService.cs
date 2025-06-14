@@ -1,6 +1,7 @@
 ﻿
 using ASP.NetCoreMVC_SchoolSystem.DTO;
 using ASP.NetCoreMVC_SchoolSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NetCoreMVC_SchoolSystem.Services
 {
@@ -23,7 +24,25 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             }
             return teacherDtos;
         }
+        //Vytvoreni noveho ucitele
+        internal async Task CreateAsync(TeacherDTO newTeacher)
+        {
+            Teacher teacherToSave = DtoToModel(newTeacher);
+            _dbContext.Teachers.Add(teacherToSave);
+            await _dbContext.SaveChangesAsync();
+        }
         //Pomocne metody
+        private Teacher DtoToModel(TeacherDTO newTeacher)
+        {
+            return new Teacher()
+            {
+                Id = newTeacher.Id,
+                FirstName = newTeacher.FirstName,
+                LastName = newTeacher.LastName,
+                DateOfBirth = newTeacher.DateOfBirth,
+                Salary = newTeacher.Salary,
+            };
+        }
         private static TeacherDTO ModelToDto(Teacher teacher)
         {
             return new TeacherDTO()
