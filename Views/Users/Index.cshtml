@@ -2,8 +2,38 @@
 
 <div class="container text-center">
 	<h1 class="my-5">List of all users</h1>
-	<a asp-action="Create" class="btn btn-warning my-5 text-center">Create new user</a>
-	<table class="table table-primary table-striped">
+	@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+	{
+					 <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center my-5">
+						<!-- První karta -->
+						<div class="col d-flex">
+							<div class="card flex-fill text-center p-3 h-100 border-dark rounded shadow bg-primary bg-opacity-10">
+								<div class="card-body d-flex flex-column justify-content-between">
+									<h5 class="card-title text-wrap">Create new user</h5>
+									<form asp-action="Create" method="get" class="d-flex flex-column align-items-center justify-content-center mx-auto w-25">
+										<button type="submit" class="btn btn-warning w-100">Create</button>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<!-- Druhá karta -->
+						<div class="col d-flex">
+							<div class="card flex-fill text-center p-3 h-100 border-dark rounded shadow bg-primary bg-opacity-10">
+								<div class="card-body d-flex flex-column justify-content-between">
+									<h5 class="card-title text-wrap">Upload list of users</h5>
+									<form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="Upload" class="d-flex flex-column align-items-center mt-3 w-100">
+										<input type="file" name="file" class="form-control mb-3" />
+										<div class="w-25 mx-auto">
+											<input type="submit" value="Upload" class="btn btn-warning w-100" />
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+	}
+	<table class="table table-primary table-striped rounded shadow">
 		<thead>
 			<tr>
 				<th scope="col">User ID</th>
