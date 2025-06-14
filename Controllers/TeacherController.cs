@@ -13,6 +13,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             _teacherService = teacherService;
         }
         //Zobrazeni vsech ucitelu
+        [HttpGet]
         public IActionResult Index()
         {
             var allTeachers = _teacherService.GetAll();
@@ -30,6 +31,21 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         public async Task<IActionResult> CreateAsync(TeacherDTO newTeacher)
         {
             await _teacherService.CreateAsync(newTeacher);
+            return RedirectToAction("Index");
+        }
+        //Editace ucitele
+        [HttpGet]
+        [Authorize(Roles = "Principal, Admin")]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var teacherToEdit = await _teacherService.GetByIdAsync(id);
+            return View(teacherToEdit);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Principal, Admin")]
+        public async Task<IActionResult> EditAsync(TeacherDTO teacherDTO, int id)
+        {
+            await _teacherService.UpdateAsync(teacherDTO, id);
             return RedirectToAction("Index");
         }
     }

@@ -31,6 +31,17 @@ namespace ASP.NetCoreMVC_SchoolSystem.Services
             _dbContext.Teachers.Add(teacherToSave);
             await _dbContext.SaveChangesAsync();
         }
+        //Editace ucitele
+        internal async Task<TeacherDTO> GetByIdAsync(int id)
+        {
+            var teacherToEdit = await _dbContext.Teachers.FindAsync(id);
+            return ModelToDto(teacherToEdit);
+        }
+        internal async Task UpdateAsync(TeacherDTO teacherDTO, int id)
+        {
+            _dbContext.Update(DtoToModel(teacherDTO));
+            await _dbContext.SaveChangesAsync();
+        }
         //Pomocne metody
         private Teacher DtoToModel(TeacherDTO newTeacher)
         {
