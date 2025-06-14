@@ -26,6 +26,7 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
 builder.Services.AddIdentity<AppUsers, IdentityRole>().AddEntityFrameworkStores<SchoolDbContext>().AddDefaultTokenProviders();
 //Servisky
 builder.Services.AddScoped<StudentService>();
+builder.Services.AddScoped<TeacherService>();
 builder.Services.AddScoped<SubjectService>();
 builder.Services.AddScoped<GradeService>();
 builder.Services.Configure<IdentityOptions>(options =>
