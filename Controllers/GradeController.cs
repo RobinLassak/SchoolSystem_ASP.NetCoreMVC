@@ -65,6 +65,11 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _gradeService.DeleteAsync(id);
             return RedirectToAction("Index"); ;
         }
+        public async Task<IActionResult> GetToDelete(int id)
+        {
+            var gradeDetails = await _gradeService.FindByIdAsync(id);
+            return View(gradeDetails);
+        }
         //Pomocne metody
         private void FillDropdowns()
         {
