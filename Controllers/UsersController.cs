@@ -1,4 +1,5 @@
 ﻿using ASP.NetCoreMVC_SchoolSystem.Models;
+using ASP.NetCoreMVC_SchoolSystem.Services;
 using ASP.NetCoreMVC_SchoolSystem.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -140,6 +141,17 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
                 return View("Index", _userManager.Users);
             }
             return View(userToDelete);
+        }
+        public async Task<IActionResult> GetToDelete(string id)
+        {
+            var userDetails = await _userManager.FindByIdAsync(id);
+
+            if (userDetails == null)
+            {
+                return NotFound();
+            }
+
+            return View(userDetails);
         }
         //Pomocne metody
         private void AddIdentityErrors(IdentityResult result)
