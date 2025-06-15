@@ -61,13 +61,18 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _subjectService.UpdateAsync(subjectDTO, id);
             return RedirectToAction("Index");
         }
-        //Metoda pro smazani predmetu
+        //Metody pro smazani predmetu
         [HttpPost]
         [Authorize(Roles = "Principal, Admin")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await _subjectService.DeleteAsync(id);
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> GetToDelete(int id)
+        {
+            var subjectDetails = await _subjectService.GetByIdAsync(id);
+            return View(subjectDetails);
         }
     }
 }

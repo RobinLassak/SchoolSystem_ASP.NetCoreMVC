@@ -1,0 +1,30 @@
+﻿@model SubjectDTO
+
+<div class="container text-center">
+	<h1 class="my-5">Delete subject @Model.Name</h1>
+	<h4 class="my-5 text-danger">Do you really want to delete this subject?</h4>
+	<table class="table table-primary table-striped rounded shadow">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+						<tr>
+							<td>@Model.Id</td>
+							<td>@Model.Name</td>
+						  <td>
+							  <div class="d-flex align-items-center justify-content-center gap-2">
+								<form method="post">
+								  <button type="submit" class="btn btn-danger" asp-action="delete" 
+								  asp-route-id="@Model.Id">delete</button>
+								</form>
+								<a asp-action="Index" class="btn btn-secondary text-white">Back</a>
+							  </div>
+						  </td>
+						</tr>
+			</tbody>
+		</table>
+</div>
