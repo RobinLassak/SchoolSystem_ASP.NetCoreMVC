@@ -71,10 +71,11 @@
 				  <td>
 					  <div class="d-flex align-items-center justify-content-center gap-2">
 						  <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-						  <form method="post">
+						  <a class="btn btn-danger" asp-action="GetToDelete" asp-route-id="@item.Id">Delete</a>
+						  @* <form method="post">
 							  <button type="submit" class="btn btn-danger" asp-action="Delete" 
 							  asp-route-id="@item.Id">Delete</button>
-						  </form>
+						  </form> *@
 					  </div>
 				  </td>
 				</tr>

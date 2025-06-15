@@ -14,12 +14,14 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             _studentService = studentService;
             _logger = logger;
         }
+        //Zobrazeni vsech studentu
         [HttpGet]
         public IActionResult Index()
         {
             var allStudents = _studentService.GetAll();
             return View(allStudents);
         }
+        //Vytvoreni noveho studenta
         [HttpGet]
         [Authorize(Roles = "Principal, Admin")]
         public IActionResult Create()
@@ -34,6 +36,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _studentService.CreateAsync(newStudent);
             return RedirectToAction("Index");
         }
+        //Editace studenta
         [HttpGet]
         [Authorize(Roles = "Principal, Admin")]
         public async Task<IActionResult> EditAsync(int id)
@@ -48,6 +51,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _studentService.UpdateAsync(studentDTO, id);
             return RedirectToAction("Index");
         }
+        //Mazani studenta
         [HttpPost]
         [Authorize(Roles = "Principal, Admin")]
         public async Task<IActionResult> DeleteAsync(int id)
@@ -55,6 +59,12 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             await _studentService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> GetToDelete(int id)
+        {
+            var studentDetails = await _studentService.GetByIdAsync(id);
+            return View(studentDetails);
+        }
+        //Hledani studentu podle jmena
         [HttpGet]
         public IActionResult Search(string q)
         {

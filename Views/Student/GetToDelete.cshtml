@@ -1,0 +1,34 @@
+﻿@model StudentDTO
+
+<div class="container text-center">
+	<h1 class="my-5">Delete student @Model.LastName</h1>
+	<h4 class="my-5 text-danger">Do you really want to delete this student?</h4>
+	<table class="table table-primary table-striped rounded shadow">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Date of Birth</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+						<tr>
+						  <th scope="row">@Model.Id</th>
+						  <td>@Model.FirstName</td>
+						  <td>@Model.LastName</td>
+						  <td>@Model.DateOfBirth.ToString()</td>
+						  <td>
+							  <div class="d-flex align-items-center justify-content-center gap-2">
+								<form method="post">
+								  <button type="submit" class="btn btn-danger" asp-action="delete" 
+								  asp-route-id="@Model.Id">delete</button>
+								</form>
+								<a asp-action="Index" class="btn btn-secondary text-white">Back</a>
+							  </div>
+						  </td>
+						</tr>
+			</tbody>
+		</table>
+</div>
