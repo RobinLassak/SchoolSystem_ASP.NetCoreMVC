@@ -61,6 +61,17 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             ModelState.AddModelError("", "Role not found");
             return View("Index", _roleManager.Roles);
         }
+        public async Task<IActionResult> GetToDelete(string id)
+        {
+            var roleDetails = await _roleManager.FindByIdAsync(id);
+
+            if (roleDetails == null)
+            {
+                return NotFound();
+            }
+
+            return View(roleDetails);
+        }
         //Editace role
         [HttpGet]
         public async Task<IActionResult> Edit(string id)

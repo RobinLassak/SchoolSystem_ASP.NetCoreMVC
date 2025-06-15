@@ -50,10 +50,7 @@
 						  <td>
 							  <div class="d-flex align-items-center justify-content-center gap-2">
 								  <a class="btn btn-warning" asp-action="Edit" asp-route-id="@role.Id">Edit</a>
-								  <form method="post">
-									  <button type="submit" class="btn btn-danger" asp-action="Delete" 
-									  asp-route-id="@role.Id">Delete</button>
-								  </form>
+								  <a class="btn btn-danger" asp-action="GetToDelete" asp-route-id="@role.Id">Delete</a>
 							  </div>
 						  </td>
 						  <td>@role.Id</td>
