@@ -14,12 +14,13 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
