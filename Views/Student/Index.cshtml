@@ -3,7 +3,7 @@
 
 <div class="container text-center">
 	<h1 class="my-5">List of Students</h1>
-	@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal")))
+	@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Principal") || User.IsInRole("Teacher")))
 	{
 			 <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center my-5">
 				<!-- První karta -->

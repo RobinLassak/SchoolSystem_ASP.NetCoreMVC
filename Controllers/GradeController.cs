@@ -23,7 +23,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Vytvoreni noveho zaznamu
         [HttpGet]
-        [Authorize(Roles = "Teacher, Admin")]
+        [Authorize(Roles = "Teacher, Admin, Principal")]
         public IActionResult Create()
         {
             FillDropdowns();
@@ -31,7 +31,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Teacher, Admin")]
+        [Authorize(Roles = "Teacher, Admin, Principal")]
         public async Task<IActionResult> CreateAsync(GradeDTO newGrade)
         {
             await _gradeService.CreateAsync(newGrade);
@@ -39,7 +39,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Editace zaznamu
         [HttpGet]
-        [Authorize(Roles = "Teacher, Admin")]
+        [Authorize(Roles = "Teacher, Admin, Principal")]
         public async Task<IActionResult> EditAsync(int id, GradeDTO gradeDTO)
         {
             var gradeToEdit = await _gradeService.FindByIdAsync(id);
@@ -51,7 +51,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
             return View(gradeToEdit);
         }
         [HttpPost]
-        [Authorize(Roles = "Teacher, Admin")]
+        [Authorize(Roles = "Teacher, Admin, Principal")]
         public async Task<IActionResult> EditAsync(GradeDTO gradeDTO, int id)
         {
             await _gradeService.UpdateAsync(gradeDTO, id);
@@ -59,7 +59,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Mazani zaznamu
         [HttpPost]
-        [Authorize(Roles = "Teacher, Admin")]
+        [Authorize(Roles = "Teacher, Admin, Principal")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await _gradeService.DeleteAsync(id);

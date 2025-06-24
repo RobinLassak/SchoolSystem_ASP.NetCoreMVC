@@ -23,14 +23,14 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Vytvoreni noveho studenta
         [HttpGet]
-        [Authorize(Roles = "Principal, Admin")]
+        [Authorize(Roles = "Principal, Admin, Teacher")]
         public IActionResult Create()
         {
             _logger.LogWarning("Volana metoda create");
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "Principal, Admin")]
+        [Authorize(Roles = "Principal, Admin, Teacher")]
         public async Task<IActionResult> CreateAsync(StudentDTO newStudent)
         {
             await _studentService.CreateAsync(newStudent);
@@ -38,14 +38,14 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Editace studenta
         [HttpGet]
-        [Authorize(Roles = "Principal, Admin")]
+        [Authorize(Roles = "Principal, Admin, Teacher")]
         public async Task<IActionResult> EditAsync(int id)
         {
             var studentToEdit = await _studentService.GetByIdAsync(id);
             return View(studentToEdit);
         }
         [HttpPost]
-        [Authorize(Roles = "Principal, Admin")]
+        [Authorize(Roles = "Principal, Admin, Teacher")]
         public async Task<IActionResult> EditAsync(StudentDTO studentDTO, int id)
         {
             await _studentService.UpdateAsync(studentDTO, id);
@@ -53,7 +53,7 @@ namespace ASP.NetCoreMVC_SchoolSystem.Controllers
         }
         //Mazani studenta
         [HttpPost]
-        [Authorize(Roles = "Principal, Admin")]
+        [Authorize(Roles = "Principal, Admin, Teacher")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await _studentService.DeleteAsync(id);
