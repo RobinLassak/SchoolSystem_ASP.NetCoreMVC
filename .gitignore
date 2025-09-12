@@ -27,6 +27,9 @@ secrets.json
 **/appsettings.Development.json
 **/appsettings.Local.json
 
+## Citlivé soubory s hesly
+Heslo.txt
+
 ## Paket/nuget věci
 packages/
 *.nupkg
